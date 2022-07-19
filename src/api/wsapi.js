@@ -1,8 +1,7 @@
 import axios from "axios";
 
-const apiKey = "_FtKaW87DS2x0gtFc25BaILz1dCHF08Kl55OczRZKw";
 const headers = {
-  zsessionid: apiKey,
+  zsessionid: process.env.API_KEY,
   "Content-Type": "application/json",
 };
 
@@ -24,15 +23,20 @@ export const getProjects = async ({ queryKey }) => {
 };
 
 //const type = "PortfolioItem/Feature";
-const type = "PortfolioItem/Initiative";
+//const type = "PortfolioItem/Initiative";
 
-const shortType = type.split("/")[1];
-const url = `${wsapiUrl}/${type}`;
+export const piTypes = {
+  "PortfolioItem/Theme": "PortfolioItem/Initiative",
+  "PortfolioItem/Initiative": "PortfolioItem/Feature",
+};
 
-export const getAllItems = async (queryKey, startDate, endDate) => {
+export const getAllItems = async (piType, startDate, endDate) => {
   /*
   (((PlannedStartDate >= 2022-04-01) AND (PlannedEndDate <= 2022-12-31)) AND (Project.ObjectID = 16662089077))
   */
+
+  const shortType = piType.split("/")[1];
+  const url = `${wsapiUrl}/${piType}`;
   const params = {
     workspace: `/workspace/${workspace}`,
     query: `(((PlannedStartDate >= ${startDate}) AND (PlannedEndDate <= ${endDate})) AND (Project.ObjectID = ${project}))`,
@@ -44,7 +48,26 @@ export const getAllItems = async (queryKey, startDate, endDate) => {
     headers: headers,
     params: params,
   });
-  return data;
+  return data.QueryResult.Results;
+};
+
+export const getChildren = async (piType, ref) => {
+  if (!piType) return;
+  const shortType = piType.split("/")[1];
+  const url = `${wsapiUrl}/${piType}`;
+  const parent = `(Parent = ${ref})`;
+  const params = {
+    workspace: `/workspace/${workspace}`,
+    query: parent,
+    fetch:
+      "ObjectID,Name,PlannedStartDate,PlannedEndDate,Project,FormattedID,PercentDoneByStoryPlanEstimate",
+  };
+
+  const { data } = await axios.get(url, {
+    headers: headers,
+    params: params,
+  });
+  return data.QueryResult.Results;
 };
 
 export const getItem = async ({ queryKey }) => {

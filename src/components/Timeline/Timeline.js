@@ -5,7 +5,6 @@ import "./Timeline.css";
 const Timeline = ({ rows }) => {
   const timelineRef = useRef();
   const width = useContainerWidth(timelineRef);
-  console.log("Width:", width);
   return (
     <>
       <div ref={timelineRef} className="container">

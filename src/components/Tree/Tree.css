@@ -1,0 +1,9 @@
+.arrow::before {
+    content: "▶ ";
+    font-size: 1.2em;
+}
+
+.arrow-down::before {
+    content: "▼ ";
+    font-size: 1.2em;
+}

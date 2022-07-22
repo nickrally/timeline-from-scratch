@@ -1,14 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Leaf from "./Leaf";
 import { getChildren, piTypes } from "../../api/wsapi";
 import { useQuery } from "react-query";
 
 const Branch = ({ item, level, handleClick }) => {
   const [selected, setSelected] = useState(false);
-  //const { handleNodeAdd } = useDataContext();
-  /* useEffect(() => {
-    handleNodeAdd(item);
-  }, []); */
 
   const hasChildren =
     item.DirectChildrenCount > 0 && item._type !== "PortfolioItem/Feature";

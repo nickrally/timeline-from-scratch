@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-
+import { useViewModelContext } from "../../context/ViewModelContext";
 import { getAllItems } from "../../api/wsapi";
 import { useQuery } from "react-query";
 import Branch from "./Branch";
@@ -8,6 +8,9 @@ import "./Tree.css";
 const Tree = ({ setBars }) => {
   const [clicked, setClicked] = useState(false);
   const [rerender, setRerender] = useState(false);
+
+  const { startDate, endDate } = useViewModelContext();
+
   const nodesRef = useRef();
   const handleClick = () => {
     console.log("IN HANDLE CLICK");
@@ -15,9 +18,14 @@ const Tree = ({ setBars }) => {
   };
   const piType = "PortfolioItem/Theme";
 
-  const { data, error, isLoading, isFetching, isError } = useQuery(
+  /* const { data, error, isLoading, isFetching, isError } = useQuery(
     [piType],
     () => getAllItems(piType, "2022-04-01", "2022-12-31")
+  ); */
+
+  const { data, error, isLoading, isFetching, isError } = useQuery(
+    [piType, startDate, endDate],
+    () => getAllItems(piType, startDate, endDate)
   );
 
   const treeRef = useRef();

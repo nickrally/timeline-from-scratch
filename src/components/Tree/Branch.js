@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Leaf from "./Leaf";
-import { getChildren, piTypes } from "../../api/wsapi";
+import { getChildren, getPiTypes } from "../../api/wsapi";
 import { useQuery } from "react-query";
 
 const Branch = ({ item, level, handleClick }) => {
@@ -8,11 +8,21 @@ const Branch = ({ item, level, handleClick }) => {
 
   const hasChildren =
     item.DirectChildrenCount > 0 && item._type !== "PortfolioItem/Feature";
-  const piType = piTypes[item._type];
+
+  const {
+    data: piTypes,
+    isLoading: isLoadingPiTypes,
+    isFetching: isFetchingPiTypes,
+    isError: isErrorPiTypes,
+  } = useQuery(["piTypes"], () => getPiTypes());
+
+  console.log("piTypes", piTypes);
+
+  //const piType = piTypes[item._type];
 
   const { data, error, isLoading, isFetching, isError } = useQuery(
-    [piType, item],
-    () => getChildren(piType, item._ref)
+    ["PortfolioItem/Feature", item],
+    () => getChildren("PortfolioItem/Feature", item._ref)
   );
 
   const renderBranches = () => {

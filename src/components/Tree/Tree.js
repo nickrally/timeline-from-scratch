@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useViewModelContext } from "../../context/ViewModelContext";
-import { getAllItems } from "../../api/wsapi";
+import { getAllItems, getPiTypes } from "../../api/wsapi";
 import { useQuery } from "react-query";
 import Branch from "./Branch";
 import "./Tree.css";
@@ -12,16 +12,21 @@ const Tree = ({ setBars }) => {
   const { startDate, endDate } = useViewModelContext();
 
   const nodesRef = useRef();
+
   const handleClick = () => {
-    console.log("IN HANDLE CLICK");
     setClicked((prev) => !prev);
   };
+
   const piType = "PortfolioItem/Theme";
 
-  /* const { data, error, isLoading, isFetching, isError } = useQuery(
-    [piType],
-    () => getAllItems(piType, "2022-04-01", "2022-12-31")
-  ); */
+  const {
+    data: allPiTypes,
+    isLoading: piTypesLoading,
+    piTypesFetching,
+    piTypesError,
+  } = useQuery(["piTypes"], () => getPiTypes("PortfolioItem/Theme"));
+
+  console.log("all PI Types", allPiTypes);
 
   const { data, error, isLoading, isFetching, isError } = useQuery(
     [piType, startDate, endDate],

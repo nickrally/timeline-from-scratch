@@ -9,7 +9,11 @@ const workspace = "12352608129"; //"NMDS"
 const project = "16662089077"; //"a project 0"
 const wsapiUrl = "https://rally1.rallydev.com/slm/webservice/v2.0";
 //https://rally1.rallydev.com/slm/webservice/v2.0/workspace/48689019490/projects
+
 const projectsUrl = `${wsapiUrl}/workspace/${workspace}/projects`;
+//const piTypesUrl = `${wsapiUrl}/typedefinition?workspace=/workspace/${12352608129}&query=(Parent.Name = "Portfolio Item")`;
+const piTypesUrl = `${wsapiUrl}/typedefinition?`;
+//const piChildTypeUrl = `${wsapiUrl}/typedefinition?workspace=/workspace/${workspace}&query=(Parent.Name = "Portfolio Item")`;
 
 export const getProjects = async ({ queryKey }) => {
   const params = {
@@ -22,9 +26,32 @@ export const getProjects = async ({ queryKey }) => {
   return data;
 };
 
-export const piTypes = {
+/* export const piTypes = {
   "PortfolioItem/Theme": "PortfolioItem/Initiative",
   "PortfolioItem/Initiative": "PortfolioItem/Feature",
+}; */
+
+export const getPiTypes = async () => {
+  const params = {
+    workspace: `/workspace/${workspace}`,
+    query: '(Parent.Name = "Portfolio Item")',
+    fetch: "ElementName,Ordinal",
+  };
+  const { data } = await axios.get(piTypesUrl, { params, headers });
+  return data?.QueryResult.Results.map((type) => ({
+    [type.ElementName]: type.Ordinal,
+  }));
+};
+
+export const getChildType = async (ordinal) => {
+  const params = {
+    workspace: `/workspace/${workspace}`,
+    query:
+      '((Parent.Name = "Portfolio Item") AND (Ordinal = `${ordinal - 1}`))',
+    fetch: "ElementName,Ordinal",
+  };
+  const { data } = await axios.get(piTypesUrl, { params, headers });
+  return data.QueryResult.Results;
 };
 
 export const getAllItems = async (piType, startDate, endDate) => {
@@ -47,6 +74,25 @@ export const getAllItems = async (piType, startDate, endDate) => {
   });
   return data.QueryResult.Results;
 };
+
+/* export const getChildren = async (piType, ref) => {
+  if (!piType) return;
+  const shortType = piType.split("/")[1];
+  const url = `${wsapiUrl}/${piType}`;
+  const parent = `(Parent = ${ref})`;
+  const params = {
+    workspace: `/workspace/${workspace}`,
+    query: parent,
+    fetch:
+      "ObjectID,Name,PlannedStartDate,PlannedEndDate,Project,FormattedID,PercentDoneByStoryPlanEstimate",
+  };
+
+  const { data } = await axios.get(url, {
+    headers: headers,
+    params: params,
+  });
+  return data.QueryResult.Results;
+}; */
 
 export const getChildren = async (piType, ref) => {
   if (!piType) return;

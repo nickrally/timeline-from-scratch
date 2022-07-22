@@ -1,22 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import Tree from "./Tree/Tree";
 import Timeline from "./Timeline/Timeline";
 import TimelineToolbar from "./TimelineToolbar";
-//import { useDataContext } from "../context/DataContextProvider";
+import { DataContextProvider } from "../context/DataContext";
 import "./App.css";
 
 function App() {
+  const rows = ["one", "two", "three"];
+  const [nodes, setNodes] = useState([]);
+  const handleNodeAdd = (items) => setNodes(items);
   return (
     <div className="wrapper">
       <div className="toolbar">
         <TimelineToolbar />
       </div>
       <div className="tree">
-        <Tree />
+        <Tree handleNodeAdd={handleNodeAdd} />
       </div>
-      <div className="timeline">foo</div>
+      <div className="timeline">
+        <Timeline nodes={nodes} />
+      </div>
     </div>
   );
 }
+
+/* function App() {
+  const rows = ["one", "two", "three"];
+  return (
+    <DataContextProvider>
+      <div className="wrapper">
+        <div className="toolbar">
+          <TimelineToolbar />
+        </div>
+        <div className="tree">
+          <Tree />
+        </div>
+        <div className="timeline">
+          <Timeline />
+        </div>
+      </div>
+    </DataContextProvider>
+  );
+} */
 
 export default App;

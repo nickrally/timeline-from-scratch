@@ -22,9 +22,6 @@ export const getProjects = async ({ queryKey }) => {
   return data;
 };
 
-//const type = "PortfolioItem/Feature";
-//const type = "PortfolioItem/Initiative";
-
 export const piTypes = {
   "PortfolioItem/Theme": "PortfolioItem/Initiative",
   "PortfolioItem/Initiative": "PortfolioItem/Feature",

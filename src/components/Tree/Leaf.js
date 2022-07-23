@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Tree.css";
 
 const Leaf = ({ item, hasChildren, level, onSelected, selected }) => {

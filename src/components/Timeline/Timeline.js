@@ -2,15 +2,15 @@ import React, { useRef } from "react";
 import { useContainerWidth } from "../utils/useContainerWidth";
 import "./Timeline.css";
 
-const Timeline = ({ rows }) => {
+const Timeline = ({ bars }) => {
   const timelineRef = useRef();
   const width = useContainerWidth(timelineRef);
   return (
     <>
       <div ref={timelineRef} className="container">
-        {rows.map((row) => (
-          <span className="row" key={row.ObjectID}>
-            {row.Name}
+        {bars?.map((bar, idx) => (
+          <span className="row" key={idx}>
+            {bar}
           </span>
         ))}
       </div>

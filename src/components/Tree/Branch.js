@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Leaf from "./Leaf";
 import { getChildren, piTypes } from "../../api/wsapi";
 import { useQuery } from "react-query";
 
-const Branch = ({ item, level }) => {
+const Branch = ({ item, level, handleClick }) => {
   const [selected, setSelected] = useState(false);
 
   const hasChildren =
@@ -19,8 +19,15 @@ const Branch = ({ item, level }) => {
     if (hasChildren) {
       const nextLevel = level + 1;
 
-      return data.map((item) => {
-        return <Branch key={item.ObjectID} item={item} level={nextLevel} />;
+      return data?.map((item) => {
+        return (
+          <Branch
+            key={item.ObjectID}
+            item={item}
+            level={nextLevel}
+            handleClick={handleClick}
+          />
+        );
       });
     }
     return null;
@@ -28,6 +35,7 @@ const Branch = ({ item, level }) => {
 
   const toggleSelected = () => {
     setSelected((prev) => !prev);
+    handleClick();
   };
 
   return (

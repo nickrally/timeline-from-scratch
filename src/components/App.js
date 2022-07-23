@@ -1,21 +1,26 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
+import { ViewModelContextProvider } from "../context/ViewModelContext";
 import Tree from "./Tree/Tree";
 import Timeline from "./Timeline/Timeline";
 import TimelineToolbar from "./TimelineToolbar";
-//import { useDataContext } from "../context/DataContextProvider";
 import "./App.css";
 
 function App() {
+  const [bars, setBars] = useState(null);
   return (
-    <div className="wrapper">
-      <div className="toolbar">
-        <TimelineToolbar />
+    <ViewModelContextProvider>
+      <div className="wrapper">
+        <div className="toolbar">
+          <TimelineToolbar />
+        </div>
+        <div className="tree">
+          <Tree setBars={setBars} />
+        </div>
+        <div className="timeline">
+          <Timeline bars={bars} />
+        </div>
       </div>
-      <div className="tree">
-        <Tree />
-      </div>
-      <div className="timeline">foo</div>
-    </div>
+    </ViewModelContextProvider>
   );
 }
 

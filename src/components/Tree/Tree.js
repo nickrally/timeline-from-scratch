@@ -16,16 +16,12 @@ const Tree = ({ setBars }) => {
     console.log("IN HANDLE CLICK");
     setClicked((prev) => !prev);
   };
-  const piType = "PortfolioItem/Theme";
 
-  /* const { data, error, isLoading, isFetching, isError } = useQuery(
-    [piType],
-    () => getAllItems(piType, "2022-04-01", "2022-12-31")
-  ); */
+  const hardcodedPiType = "PortfolioItem/Theme";
 
   const { data, error, isLoading, isFetching, isError } = useQuery(
-    [piType, startDate, endDate],
-    () => getAllItems(piType, startDate, endDate)
+    [hardcodedPiType, startDate, endDate],
+    () => getAllItems(hardcodedPiType, startDate, endDate)
   );
 
   const treeRef = useRef();

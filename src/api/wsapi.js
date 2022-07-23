@@ -22,7 +22,7 @@ export const getProjects = async ({ queryKey }) => {
   return data;
 };
 
-export const piTypes = {
+export const hardcodedPiTypes = {
   "PortfolioItem/Theme": "PortfolioItem/Initiative",
   "PortfolioItem/Initiative": "PortfolioItem/Feature",
 };

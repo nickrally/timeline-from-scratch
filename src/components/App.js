@@ -7,7 +7,12 @@ import "./App.css";
 
 function App() {
   const [bars, setBars] = useState(null);
-  const [selectedPiType, setSelectedPiType] = useState("PortfolioItem/Theme");
+  const initPi = {
+    TypePath: "PortfolioItem/Feature",
+    ElementName: "Feature",
+    Ordinal: 0,
+  };
+  const [selectedPiType, setSelectedPiType] = useState(initPi);
   return (
     <ViewModelContextProvider>
       <div className="wrapper">

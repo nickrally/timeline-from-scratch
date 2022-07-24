@@ -11,12 +11,10 @@ export const ViewModelContextProvider = ({ children }) => {
   const [endDate, setEndDate] = useState("2022-12-31");
 
   const updateStartDate = (date) => {
-    console.log("updateStartDate to:", date);
     setStartDate(date);
   };
 
   const updateEndDate = (date) => {
-    console.log("updateEndtDate to:", date);
     setEndDate(date);
   };
 

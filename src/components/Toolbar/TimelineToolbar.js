@@ -2,16 +2,23 @@ import React, { useState } from "react";
 import moment from "moment";
 import TimeLineDateEditor from "./TimelineDateEditor";
 import { useViewModelContext } from "../../context/ViewModelContext";
-import { hardcodedPiTypes } from "../../api/wsapi";
+import { hardcodedPiTypes, getPiTypes } from "../../api/wsapi";
+import { useQuery } from "react-query";
 import Dropdown from "./Dropdown";
 
 const TimelineToolbar = ({ selectedPiType, setSelectedPiType }) => {
   const { updateEndDate, updateStartDate, endDate, startDate } =
     useViewModelContext();
 
-  //const [selectedOption, setSelectedOption] = useState(null);
+  //const hardcodedPiTypeNames = Object.keys(hardcodedPiTypes);
 
-  const hardcodedPiTypeNames = Object.keys(hardcodedPiTypes);
+  const { data: piTypes } = useQuery(["piTypes"], () => getPiTypes());
+
+  console.log("piTypes from wsapi", piTypes);
+
+  /*   const piTypeNames = piTypes
+    ?.filter((pi) => pi.Ordinal > -1)
+    .map((pi) => pi.ElementName); */
 
   //must use moment to convert date to ISOString:
   const endDatePickerProps = {
@@ -30,8 +37,8 @@ const TimelineToolbar = ({ selectedPiType, setSelectedPiType }) => {
 
   const handleSelection = (e) => {
     console.log("e.currentTarget.value", e.currentTarget.value);
-    const found = hardcodedPiTypeNames?.filter(
-      (pi) => pi === e.currentTarget.value
+    const found = piTypes?.filter(
+      (type) => type.TypePath === e.currentTarget.value
     );
     console.log("found?", found[0]);
     if (found) {
@@ -39,13 +46,13 @@ const TimelineToolbar = ({ selectedPiType, setSelectedPiType }) => {
     }
   };
 
+  const contcretePiTypes = piTypes?.filter((type) => type.Ordinal >= 0);
   return (
     <div>
       {!selectedPiType && <p>Make a selection</p>}
-      <Dropdown
-        onOptionChange={handleSelection}
-        options={hardcodedPiTypeNames}
-      />
+      {piTypes && (
+        <Dropdown onOptionChange={handleSelection} options={contcretePiTypes} />
+      )}
       <div id="startDatePicker">
         <TimeLineDateEditor {...startDatePickerProps} />
       </div>

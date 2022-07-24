@@ -5,7 +5,8 @@ import { useQuery } from "react-query";
 import Branch from "./Branch";
 import "./Tree.css";
 
-const Tree = ({ setBars }) => {
+const Tree = ({ setBars, selectedPiType }) => {
+  console.log("selectedPiType", selectedPiType);
   const [clicked, setClicked] = useState(false);
   const [rerender, setRerender] = useState(false);
 
@@ -17,7 +18,9 @@ const Tree = ({ setBars }) => {
     setClicked((prev) => !prev);
   };
 
-  const hardcodedPiType = "PortfolioItem/Theme";
+  //const hardcodedPiType = "PortfolioItem/Theme";
+  const hardcodedPiType = selectedPiType;
+  console.log("selectedPiType", selectedPiType);
 
   const { data, error, isLoading, isFetching, isError } = useQuery(
     [hardcodedPiType, startDate, endDate],

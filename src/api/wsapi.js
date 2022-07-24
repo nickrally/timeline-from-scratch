@@ -25,6 +25,7 @@ export const getProjects = async ({ queryKey }) => {
 export const hardcodedPiTypes = {
   "PortfolioItem/Theme": "PortfolioItem/Initiative",
   "PortfolioItem/Initiative": "PortfolioItem/Feature",
+  "PortfolioItem/Feature": null,
 };
 
 export const getAllItems = async (piType, startDate, endDate) => {

@@ -14,12 +14,6 @@ const TimelineToolbar = ({ selectedPiType, setSelectedPiType }) => {
 
   const { data: piTypes } = useQuery(["piTypes"], () => getPiTypes());
 
-  console.log("piTypes from wsapi", piTypes);
-
-  /*   const piTypeNames = piTypes
-    ?.filter((pi) => pi.Ordinal > -1)
-    .map((pi) => pi.ElementName); */
-
   //must use moment to convert date to ISOString:
   const endDatePickerProps = {
     onChange: (date) => {
@@ -36,11 +30,9 @@ const TimelineToolbar = ({ selectedPiType, setSelectedPiType }) => {
   };
 
   const handleSelection = (e) => {
-    console.log("e.currentTarget.value", e.currentTarget.value);
     const found = piTypes?.filter(
       (type) => type.TypePath === e.currentTarget.value
     );
-    console.log("found?", found[0]);
     if (found) {
       setSelectedPiType(found[0]);
     }

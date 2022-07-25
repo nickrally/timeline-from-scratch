@@ -1,18 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Leaf from "./Leaf";
-import { getChildren, hardcodedPiTypes } from "../../api/wsapi";
+import { getChildren, getChildType, hardcodedPiTypes } from "../../api/wsapi";
 import { useQuery } from "react-query";
 
-const Branch = ({ item, level, handleClick }) => {
+const Branch = ({ item, level, handleClick, selectedPiType }) => {
   const [selected, setSelected] = useState(false);
 
   const hasChildren =
     item.DirectChildrenCount > 0 && item._type !== "PortfolioItem/Feature";
-  const piType = hardcodedPiTypes[item._type];
+
+  //const piType = hardcodedPiTypes[item._type];
+
+  const {
+    data: childType,
+    error: childTypeError,
+    isLoading: childTypeIsLoading,
+    isFetching: childTypeIsFetching,
+    isError: childTypeIsError,
+  } = useQuery([item._type, item], () =>
+    getChildType(selectedPiType?.Ordinal - level - 1)
+  );
 
   const { data, error, isLoading, isFetching, isError } = useQuery(
-    [piType, item],
-    () => getChildren(piType, item._ref)
+    [childType?.TypePath, item],
+    () => getChildren(childType?.TypePath, item._ref)
   );
 
   const renderBranches = () => {
@@ -26,6 +37,7 @@ const Branch = ({ item, level, handleClick }) => {
             item={item}
             level={nextLevel}
             handleClick={handleClick}
+            selectedPiType={selectedPiType}
           />
         );
       });

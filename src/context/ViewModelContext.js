@@ -1,3 +1,4 @@
+import moment from "moment";
 import React, { createContext, useContext, useState } from "react";
 
 export const ViewModelContext = createContext({});
@@ -7,8 +8,14 @@ export const useViewModelContext = () => {
 };
 
 export const ViewModelContextProvider = ({ children }) => {
-  const [startDate, setStartDate] = useState("2022-04-01");
-  const [endDate, setEndDate] = useState("2022-12-31");
+  const today = new Date();
+  const initStartDate = new Date().setDate(today.getDate() - 120);
+  const initEndDate = new Date().setDate(today.getDate() + 120);
+
+  const [startDate, setStartDate] = useState(
+    moment(initStartDate).toISOString()
+  );
+  const [endDate, setEndDate] = useState(moment(initEndDate).toISOString());
 
   const updateStartDate = (date) => {
     setStartDate(date);

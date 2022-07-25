@@ -59,6 +59,7 @@ const Tree = ({ setBars, selectedPiType }) => {
             item={item}
             level={0}
             handleClick={handleClick}
+            selectedPiType={selectedPiType}
           />
         ))
       ) : null}

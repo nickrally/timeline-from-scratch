@@ -36,6 +36,7 @@ export const getPiTypes = async () => {
     fetch: "ElementName,Ordinal,TypePath",
   };
   const { data } = await axios.get(piTypesUrl, { params, headers });
+
   return data?.QueryResult.Results.map((type) => ({
     TypePath: type.TypePath,
     ElementName: type.ElementName,
@@ -46,12 +47,13 @@ export const getPiTypes = async () => {
 export const getChildType = async (ordinal) => {
   const params = {
     workspace: `/workspace/${workspace}`,
-    query:
-      '((Parent.Name = "Portfolio Item") AND (Ordinal = `${ordinal - 1}`))',
-    fetch: "ElementName,Ordinal",
+    query: `((Parent.Name = "Portfolio Item") AND (Ordinal = ${ordinal}))`,
+    fetch: "ElementName,Ordinal,TypePath",
   };
+
   const { data } = await axios.get(piTypesUrl, { params, headers });
-  return data.QueryResult.Results;
+
+  return data?.QueryResult.Results[0];
 };
 
 export const getAllItems = async (piType, startDate, endDate) => {

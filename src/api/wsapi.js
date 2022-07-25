@@ -10,6 +10,7 @@ const project = "16662089077"; //"a project 0"
 const wsapiUrl = "https://rally1.rallydev.com/slm/webservice/v2.0";
 //https://rally1.rallydev.com/slm/webservice/v2.0/workspace/48689019490/projects
 const projectsUrl = `${wsapiUrl}/workspace/${workspace}/projects`;
+const piTypesUrl = `${wsapiUrl}/typedefinition?`;
 
 export const getProjects = async ({ queryKey }) => {
   const params = {
@@ -25,6 +26,32 @@ export const getProjects = async ({ queryKey }) => {
 export const hardcodedPiTypes = {
   "PortfolioItem/Theme": "PortfolioItem/Initiative",
   "PortfolioItem/Initiative": "PortfolioItem/Feature",
+  "PortfolioItem/Feature": null,
+};
+
+export const getPiTypes = async () => {
+  const params = {
+    workspace: `/workspace/${workspace}`,
+    query: '(Parent.Name = "Portfolio Item")',
+    fetch: "ElementName,Ordinal,TypePath",
+  };
+  const { data } = await axios.get(piTypesUrl, { params, headers });
+  return data?.QueryResult.Results.map((type) => ({
+    TypePath: type.TypePath,
+    ElementName: type.ElementName,
+    Ordinal: type.Ordinal,
+  }));
+};
+
+export const getChildType = async (ordinal) => {
+  const params = {
+    workspace: `/workspace/${workspace}`,
+    query:
+      '((Parent.Name = "Portfolio Item") AND (Ordinal = `${ordinal - 1}`))',
+    fetch: "ElementName,Ordinal",
+  };
+  const { data } = await axios.get(piTypesUrl, { params, headers });
+  return data.QueryResult.Results;
 };
 
 export const getAllItems = async (piType, startDate, endDate) => {

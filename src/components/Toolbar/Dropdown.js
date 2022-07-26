@@ -14,20 +14,3 @@ const Dropdown = ({ onOptionChange, options }) => {
 };
 
 export default Dropdown;
-
-/* const Dropdown = ({ onOptionChange, options }) => {
-    return (
-      <select onChange={onOptionChange} defaultValue="">
-        <option value="" disabled>
-          Choose...
-        </option>
-        {options.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
-    );
-  };
-  
-  export default Dropdown; */

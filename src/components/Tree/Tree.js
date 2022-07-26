@@ -42,7 +42,6 @@ const Tree = ({ setBars, selectedPiType }) => {
   }, [clicked, rerender]); //need rerender in the dependencies array
 
   useEffect(() => {
-    console.log("this should run twice");
     setRerender(!rerender);
   }, [data]);
 

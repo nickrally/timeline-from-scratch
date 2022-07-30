@@ -19,7 +19,6 @@ export const ViewModelContextProvider = ({ children }) => {
   const start = moment(startDate, "YYYY-MM-DD");
   const end = moment(endDate, "YYYY-MM-DD");
   const numberOfWeeks = Math.ceil(moment.duration(end.diff(start)).asWeeks());
-  console.log("numberOfWeeks", numberOfWeeks);
 
   const updateStartDate = (date) => {
     setStartDate(date);

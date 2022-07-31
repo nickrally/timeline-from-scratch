@@ -52,16 +52,24 @@ const Timeline = ({ bars }) => {
           ></div>
         ))}
         {pills?.map((pill, idx) => (
-          <span className="row" key={idx}>
-            <span
+          <div className="row" key={idx}>
+            <div
               style={{
+                display: "inline-block",
                 paddingLeft: `${calcPos(pill).start * unit}px`,
                 width: `${calcPos(pill).length * unit}px`,
               }}
             >
-              <span style={{ backgroundColor: "green" }}>{pill}</span>
-            </span>
-          </span>
+              <div
+                style={{
+                  backgroundColor: "lightgreen",
+                  border: "1px solid green",
+                }}
+              >
+                &nbsp;
+              </div>
+            </div>
+          </div>
         ))}
       </div>
     </>

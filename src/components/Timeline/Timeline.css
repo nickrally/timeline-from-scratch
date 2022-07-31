@@ -5,6 +5,8 @@
 
 .row {
     border: 1px solid gray;
+    padding-bottom: 3px;
+    padding-top: 3px;
 }
 
 .vl{

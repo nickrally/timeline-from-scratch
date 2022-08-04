@@ -16,6 +16,10 @@ export const ViewModelContextProvider = ({ children }) => {
     moment(initStartDate).toISOString()
   );
   const [endDate, setEndDate] = useState(moment(initEndDate).toISOString());
+  const start = moment(startDate, "YYYY-MM-DD");
+  const end = moment(endDate, "YYYY-MM-DD");
+  const numberOfWeeks = Math.floor(moment.duration(end.diff(start)).asWeeks());
+  const numberOfDays = Math.floor(moment.duration(end.diff(start)).asDays());
 
   const updateStartDate = (date) => {
     setStartDate(date);
@@ -30,6 +34,8 @@ export const ViewModelContextProvider = ({ children }) => {
     updateStartDate,
     startDate,
     endDate,
+    numberOfWeeks,
+    numberOfDays,
   };
   return (
     <ViewModelContext.Provider value={contextProps}>

@@ -24,3 +24,9 @@
   .timeline {
     grid-area: timeline;
   }
+
+  .header{
+    background-color: darkgray;
+    height: 2rem;
+    width: 100%;
+  }

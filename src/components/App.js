@@ -3,6 +3,7 @@ import { ViewModelContextProvider } from "../context/ViewModelContext";
 import Tree from "./Tree/Tree";
 import Timeline from "./Timeline/Timeline";
 import TimelineToolbar from "./Toolbar/TimelineToolbar";
+import DatesHeader from "./DatesHeader";
 import "./App.css";
 
 function App() {
@@ -23,9 +24,11 @@ function App() {
           />
         </div>
         <div className="tree">
+          <div className="header">Tree</div>
           <Tree setBars={setBars} selectedPiType={selectedPiType} />
         </div>
         <div className="timeline">
+          <DatesHeader />
           <Timeline bars={bars} />
         </div>
       </div>

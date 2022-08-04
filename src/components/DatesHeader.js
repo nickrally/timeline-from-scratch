@@ -14,7 +14,7 @@ const DatesHeader = () => {
     const dates = new Array(numberOfDays).fill(0).map((_, idx) => (
       <div
         key={idx}
-        className="foo"
+        className="dates"
         style={{ right: `${idx * dayColumnWidth}px` }}
       >
         {idx % 14 === 0 &&

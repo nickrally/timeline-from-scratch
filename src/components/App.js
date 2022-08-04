@@ -15,24 +15,27 @@ function App() {
   };
   const [selectedPiType, setSelectedPiType] = useState(initPi);
   return (
-    <ViewModelContextProvider>
-      <div className="wrapper">
-        <div className="toolbar">
-          <TimelineToolbar
-            selectedPiType={selectedPiType}
-            setSelectedPiType={setSelectedPiType}
-          />
+    <>
+      <ViewModelContextProvider>
+        <div className="wrapper">
+          <div className="toolbar">
+            <TimelineToolbar
+              selectedPiType={selectedPiType}
+              setSelectedPiType={setSelectedPiType}
+            />
+          </div>
+          <div className="tree">
+            <div className="header"></div>
+            <Tree setBars={setBars} selectedPiType={selectedPiType} />
+          </div>
+          <div className="timeline">
+            <DatesHeader />
+            <Timeline bars={bars} />
+          </div>
         </div>
-        <div className="tree">
-          <div className="header">Tree</div>
-          <Tree setBars={setBars} selectedPiType={selectedPiType} />
-        </div>
-        <div className="timeline">
-          <DatesHeader />
-          <Timeline bars={bars} />
-        </div>
-      </div>
-    </ViewModelContextProvider>
+      </ViewModelContextProvider>
+      <div className="footer">&nbsp;</div>
+    </>
   );
 }
 

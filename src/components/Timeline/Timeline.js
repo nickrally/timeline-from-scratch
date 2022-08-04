@@ -3,7 +3,6 @@ import { useContainerWidth } from "../utils/useContainerWidth";
 import { useViewModelContext } from "../../context/ViewModelContext";
 import { useMutation, useQueryClient } from "react-query";
 import { updateItem } from "../../api/wsapi";
-import Bar from "./Bar";
 import "./Timeline.css";
 import moment from "moment";
 

@@ -7,21 +7,25 @@ import "./Timeline.css";
 import moment from "moment";
 
 const Timeline = ({ bars }) => {
-  const dragItem = useRef();
-
   const [currentBar, setCurrentBar] = useState(null);
-
+  console.log("BBARS", bars);
   const { mutateAsync } = useMutation(updateItem);
   const queryClient = useQueryClient();
 
-  const pills = bars?.map((bar) => {
-    const dates = bar.split("*")[1];
+  const bars2 = bars?.filter((bar) => bar.startsWith("/portfolioitem/"));
+
+  const pills = bars2?.map((bar) => {
+    const ref = bar.split("*")[0];
+    const datesAndColor = bar.split("*")[1];
+    const dates = datesAndColor.split("~")[0];
+    const color = datesAndColor.split("~")[1];
     const plannedStartDate = dates.split("=")[0];
     const plannedEndDate = dates.split("=")[1];
-    const ref = bar.split("^")[0];
+
     return {
       plannedStartDate,
       plannedEndDate,
+      color,
       ref,
     };
   });
@@ -169,7 +173,7 @@ const Timeline = ({ bars }) => {
                   onMouseUp={(e) => handleMouseUp(e)}
                   onDragEnd={(e) => onDragEnd(e)}
                   style={{
-                    backgroundColor: "lightgreen",
+                    backgroundColor: `${pill.color}`,
                     border: "1px solid green",
                   }}
                 >

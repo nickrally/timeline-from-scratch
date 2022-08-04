@@ -67,7 +67,7 @@ export const getAllItems = async (piType, startDate, endDate) => {
     workspace: `/workspace/${workspace}`,
     query: `(((PlannedStartDate >= ${startDate}) AND (PlannedEndDate <= ${endDate})) AND (Project.ObjectID = ${project}))`,
     fetch:
-      "ObjectID,Name,PlannedStartDate,PlannedEndDate,Project,FormattedID,PercentDoneByStoryPlanEstimate",
+      "ObjectID,Name,PlannedStartDate,PlannedEndDate,Project,FormattedID,PercentDoneByStoryPlanEstimate,DisplayColor",
   };
 
   const { data } = await axios.get(url, {
@@ -86,7 +86,7 @@ export const getChildren = async (piType, ref) => {
     workspace: `/workspace/${workspace}`,
     query: parent,
     fetch:
-      "ObjectID,Name,PlannedStartDate,PlannedEndDate,Project,FormattedID,PercentDoneByStoryPlanEstimate",
+      "ObjectID,Name,PlannedStartDate,PlannedEndDate,Project,FormattedID,PercentDoneByStoryPlanEstimate,DisplayColor",
   };
 
   const { data } = await axios.get(url, {
@@ -101,7 +101,7 @@ export const getItem = async ({ queryKey }) => {
   const itemUrl = `${wsapiUrl}/${type}/${objectid}`;
   const params = {
     fetch:
-      "ObjectID,Name,PlannedStartDate,PlannedEndDate,PercentDoneByStoryPlanEstimate",
+      "ObjectID,Name,PlannedStartDate,PlannedEndDate,PercentDoneByStoryPlanEstimate,Project",
   };
 
   const { data } = await axios.get(itemUrl, {

@@ -4,7 +4,7 @@
   }
 
 .row {
-    border: 1px solid gray;
+    border: 1px solid #D3D3D3;
     padding-bottom: 3px;
     padding-top: 3px;
 }
@@ -20,14 +20,10 @@
   border-right: 2px solid gray;
 }
 
-.foo{
+.dates{
   position: absolute;
   height: 100%;
 }
-/* 
-.dropzone{
-  position: absolute
-} */
 
 .draggable{
   left: 0;

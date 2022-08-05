@@ -6,6 +6,7 @@
       "toolbar toolbar toolbar toolbar"
       "tree timeline timeline timeline";
     font-family: Arial, Helvetica, sans-serif;
+    background-color: black;
   }
   
   .wrapper > * {
@@ -20,6 +21,7 @@
   
   .tree {
     grid-area: tree;
+    color: lightgray
   }
   
   .timeline {
@@ -27,7 +29,7 @@
   }
 
   .header{
-    background-color: darkgray;
+    background-color: #717D7E;
     height: 2rem;
     width: 100%;
   }

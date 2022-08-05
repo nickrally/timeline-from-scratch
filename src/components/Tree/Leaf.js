@@ -20,13 +20,13 @@ const Leaf = ({ item, hasChildren, level, onSelected, selected }) => {
     <div
       style={{
         paddingLeft: `${level * 16}px`,
-        border: "1px solid #D3D3D3",
+        border: "1px solid #717D7E",
         paddingBottom: "3px",
         paddingTop: "3px",
       }}
       className="title"
     >
-      <span style={{ fontSize: "109.25%" }}>
+      <span style={{ fontSize: "109.25%", color: "#D3D3D3" }}>
         <a href={constructUrl()} target="_blank">
           {fid}
         </a>{" "}

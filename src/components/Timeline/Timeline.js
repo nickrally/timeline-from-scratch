@@ -8,7 +8,6 @@ import moment from "moment";
 
 const Timeline = ({ bars }) => {
   const [currentBar, setCurrentBar] = useState(null);
-  console.log("BBARS", bars);
   const { mutateAsync } = useMutation(updateItem);
   const queryClient = useQueryClient();
 

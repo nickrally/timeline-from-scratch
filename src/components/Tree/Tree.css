@@ -1,10 +1,15 @@
 .arrow::before {
     content: "▶ ";
     font-size: 1.2em;
+    color: #D3D3D3;
+    margin-left: 0.5rem;
 }
 
 .arrow-down::before {
     content: "▼ ";
     font-size: 1.2em;
+    color: #D3D3D3;
+    margin-left: 0.5rem;
 }
+
 

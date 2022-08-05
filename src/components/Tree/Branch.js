@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Leaf from "./Leaf";
 import { getChildren, getChildType, hardcodedPiTypes } from "../../api/wsapi";
 import { useQuery } from "react-query";
-
+import "./Tree.css";
 const Branch = ({ item, level, handleClick, selectedPiType }) => {
   const [selected, setSelected] = useState(false);
 
